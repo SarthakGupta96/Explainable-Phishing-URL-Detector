@@ -101,9 +101,44 @@ with tab_check:
         with t_shap:
             st.caption("Red pushes toward phishing, blue toward benign. Units are log-odds; "
                        "the bars add up from the base value to the model output f(x).")
-            plt.figure()
-            shap.plots.waterfall(res["shap_explanation"], max_display=12, show=False)
-            st.pyplot(plt.gcf(), clear_figure=True)
+            # plt.figure()
+            # shap.plots.waterfall(res["shap_explanation"], max_display=12, show=False)
+            # st.pyplot(plt.gcf(), clear_figure=True)
+            
+            try:
+                plt.figure()
+                shap.plots.waterfall(
+                    res["shap_explanation"],
+                    max_display=12,
+                    show=False
+                )
+                st.pyplot(plt.gcf(), clear_figure=True)
+
+            except IndexError:
+                # Fallback if SHAP's waterfall plot fails with a Matplotlib error.
+                plt.close("all")
+
+                st.warning(
+                    "The SHAP waterfall plot could not be rendered. "
+                    "Showing feature contributions in a bar chart instead."
+                )
+
+                shap_df = res["shap"].copy()
+                shap_df = shap_df.sort_values(
+                    "shap",
+                    key=lambda values: values.abs(),
+                    ascending=True
+                )
+
+                fig, ax = plt.subplots(figsize=(9, 6))
+                ax.barh(shap_df["feature"], shap_df["shap"])
+                ax.set_xlabel("SHAP contribution (log-odds)")
+                ax.set_title("Feature contributions toward the prediction")
+                fig.tight_layout()
+
+                st.pyplot(fig, clear_figure=True)
+                plt.close(fig)
+
             st.dataframe(res["shap"].rename(columns={"value": "feature value"}),
                          width="stretch", hide_index=True)
         with t_lime:

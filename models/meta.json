@@ -47,7 +47,6 @@
     "has_port",
     "has_at",
     "has_punycode",
-    "starts_with_www",
     "has_double_slash_path",
     "has_hex_encoding",
     "has_long_hex_token",
@@ -74,5 +73,5 @@
     "brand_in_path_not_host"
   ],
   "threshold": 0.5,
-  "best_iteration": 109
+  "best_iteration": 383
 }

@@ -79,14 +79,25 @@ def _max_run(regex, s: str) -> int:
 _CANON_RE = re.compile(r"^([a-zA-Z][a-zA-Z0-9+.\-]*://)?([^/?#]*)(.*)$", re.S)
 
 
+# def canonical_url(url: str) -> str:
+#     """Strip quotes/space and make sure there is always a path: 'https://a.com' -> 'https://a.com/'.
+#     Without this, 'google.com' and 'google.com/' give different features (path_len 0 vs 1)."""
+#     url = (url or "").strip().strip("\"'")
+#     m = _CANON_RE.match(url)
+#     if not m:
+#         return url
+#     scheme, host, rest = m.group(1) or "", m.group(2), m.group(3)
+#     if rest == "" or rest[0] in "?#":
+#         rest = "/" + rest
+#     return scheme + host + rest
 def canonical_url(url: str) -> str:
-    """Strip quotes/space and make sure there is always a path: 'https://a.com' -> 'https://a.com/'.
-    Without this, 'google.com' and 'google.com/' give different features (path_len 0 vs 1)."""
+    """Strip quotes/space, drop leading 'www.', lowercase host, ensure a path."""
     url = (url or "").strip().strip("\"'")
     m = _CANON_RE.match(url)
     if not m:
         return url
     scheme, host, rest = m.group(1) or "", m.group(2), m.group(3)
+    host = re.sub(r"^www\d*\.", "", host.lower())   # <-- www.youtube.com == youtube.com
     if rest == "" or rest[0] in "?#":
         rest = "/" + rest
     return scheme + host + rest
@@ -222,7 +233,7 @@ def extract_features(url: str) -> dict:
         "has_port": int(port is not None and port not in (80, 443)),
         "has_at": int("@" in url),
         "has_punycode": int("xn--" in host),
-        "starts_with_www": int(host.startswith("www.")),
+        # "starts_with_www": int(host.startswith("www.")),
         "has_double_slash_path": int("//" in path),
         "has_hex_encoding": int(bool(re.search(r"%[0-9a-fA-F]{2}", url))),
         "has_long_hex_token": int(bool(_HEX_RE.search(low_path_q))),

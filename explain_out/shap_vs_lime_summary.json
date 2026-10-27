@@ -1,7 +1,7 @@
 {
   "n_urls": 100,
   "top_k": 5,
-  "mean_jaccard_topk": 0.2695238095238095,
-  "mean_sign_agreement": 1.0,
-  "same_top1_rate": 0.1
+  "mean_jaccard_topk": 0.11976190476190478,
+  "mean_sign_agreement": 0.9276315789473685,
+  "same_top1_rate": 0.06
 }

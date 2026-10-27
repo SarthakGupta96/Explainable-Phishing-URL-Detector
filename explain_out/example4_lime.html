@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divI6V4Y9XFV9P8Y00"></div>
+        <div class="lime top_div" id="top_div7ODZL2YXXCVI050"></div>
         
         <script>
-        var top_div = d3.select('#top_divI6V4Y9XFV9P8Y00').classed('lime top_div', true);
+        var top_div = d3.select('#top_div7ODZL2YXXCVI050').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["benign", "phishing"], [0.0012778639793395996, 0.9987221360206604]);
+            var pp = new lime.PredictProba(pp_svg, ["benign", "phishing"], [0.0006937980651855469, 0.9993062019348145]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["benign", "phishing"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["fragment_len <= 0.00", -0.3733531202480684], ["is_http=0", -0.32770868482048937], ["free_hosting=1", 0.325759043835701], ["has_wp_path=0", -0.31775922855379873], ["num_question <= 0.00", -0.27989555035745733], ["starts_with_www=0", 0.27345961315598466], ["tld_suspicious=0", -0.24778494924301417], ["is_shortener=0", -0.20805732861529677], ["has_port=0", -0.10701237940449453], ["num_at <= 0.00", 0.09708750166487928]], 1, exp_div);
+                exp.show([["free_hosting=1", 0.3422211306700339], ["is_shortener=0", -0.3199404306306489], ["is_http=0", -0.3057743002802898], ["is_https=1", 0.290940416285485], ["has_wp_path=0", -0.2734629396789665], ["tld_suspicious=0", -0.2539303946051172], ["num_equals <= 0.00", -0.23954319664179408], ["fragment_len <= 0.00", -0.23946542533933846], ["tld_len <= 3.00", 0.21393051365546562], ["num_question <= 0.00", -0.16104754129472865]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["fragment_len", "0.00", -0.3733531202480684], ["is_http=0", "True", -0.32770868482048937], ["free_hosting=1", "True", 0.325759043835701], ["has_wp_path=0", "True", -0.31775922855379873], ["num_question", "0.00", -0.27989555035745733], ["starts_with_www=0", "True", 0.27345961315598466], ["tld_suspicious=0", "True", -0.24778494924301417], ["is_shortener=0", "True", -0.20805732861529677], ["has_port=0", "True", -0.10701237940449453], ["num_at", "0.00", 0.09708750166487928]], 1, raw_div);
+            exp.show_raw_tabular([["free_hosting=1", "True", 0.3422211306700339], ["is_shortener=0", "True", -0.3199404306306489], ["is_http=0", "True", -0.3057743002802898], ["is_https=1", "True", 0.290940416285485], ["has_wp_path=0", "True", -0.2734629396789665], ["tld_suspicious=0", "True", -0.2539303946051172], ["num_equals", "0.00", -0.23954319664179408], ["fragment_len", "0.00", -0.23946542533933846], ["tld_len", "3.00", 0.21393051365546562], ["num_question", "0.00", -0.16104754129472865]], 1, raw_div);
         
         </script>
         </body></html>
