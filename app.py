@@ -36,21 +36,35 @@ EXAMPLES = {
     "IP + .php": "http://192.168.10.5:8080/login/update-account.php",
 }
 
+ALLOW_HOSTS = {
+    "sarthakgupta96-explainable-phishing-url-detector-app-nregbu.streamlit.app",
+}
+
+
+# def final_verdict(url, p, use_override):
+#     model_says = "PHISHING" if p >= THR else "BENIGN"
+#     if use_override and p >= THR:
+#         _, host, *_ = split_url(url)
+#         if registered_domain(url) in TRUSTED_DOMAINS and host not in USER_CONTENT_HOSTS:
+#             return "BENIGN", True
+#     return model_says, False
+
 
 def final_verdict(url, p, use_override):
     model_says = "PHISHING" if p >= THR else "BENIGN"
     if use_override and p >= THR:
         _, host, *_ = split_url(url)
+        if host in ALLOW_HOSTS:
+            return "BENIGN", True
         if registered_domain(url) in TRUSTED_DOMAINS and host not in USER_CONTENT_HOSTS:
             return "BENIGN", True
     return model_says, False
-
 
 # ------------------------------------------------------------------ sidebar
 with st.sidebar:
     st.header("Settings")
     use_override = st.checkbox(
-        "Trusted-domain override", value=False,
+        "Trusted-domain override", value=True,
         help="Reputation layer: if the model flags a very well-known domain, show BENIGN. "
              "Leave OFF to see the raw model (this is what SHAP/LIME explain).")
     st.caption(f"Decision threshold: {THR:.2f}")
